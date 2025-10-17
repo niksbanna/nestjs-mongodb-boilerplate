@@ -79,7 +79,7 @@ jobs:
           MONGODB_URI: mongodb://localhost:27017/test
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage/coverage-final.json
           flags: unittests
