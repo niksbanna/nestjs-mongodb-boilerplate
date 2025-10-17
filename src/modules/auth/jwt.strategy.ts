@@ -1,9 +1,9 @@
-import { ExtractJwt, JwtPayload, Strategy } from "passport-jwt";
-import { PassportStrategy } from "@nestjs/passport";
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { ExtractJwt, JwtPayload, Strategy } from 'passport-jwt';
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { ConfigService } from "../config/config.service";
-import { ProfileService } from "../profile/profile.service";
+import { ConfigService } from '../config/config.service';
+import { ProfileService } from '../profile/profile.service';
 
 /**
  * Jwt Strategy Class
@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get("WEBTOKEN_SECRET_KEY"),
+      secretOrKey: configService.get('WEBTOKEN_SECRET_KEY'),
     });
   }
 

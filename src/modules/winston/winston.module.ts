@@ -1,12 +1,12 @@
-import { DynamicModule, Global, Module } from "@nestjs/common";
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import {
   WinstonModuleAsyncOptions,
   WinstonModuleOptions,
-} from "./winston.interfaces";
+} from './winston.interfaces';
 import {
   createWinstonAsyncProviders,
   createWinstonProviders,
-} from "./winston.providers";
+} from './winston.providers';
 
 @Global()
 @Module({})

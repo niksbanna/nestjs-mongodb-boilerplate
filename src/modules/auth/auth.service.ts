@@ -1,9 +1,9 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { ConfigService } from "../config/config.service";
-import { ProfileService } from "../profile/profile.service";
-import { IProfile } from "../profile/profile.model";
-import { LoginPayload } from "./payload/login.payload";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '../config/config.service';
+import { ProfileService } from '../profile/profile.service';
+import { IProfile } from '../profile/profile.model';
+import { LoginPayload } from './payload/login.payload';
 
 /**
  * Models a typical Login/Register route return body
@@ -45,7 +45,7 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly profileService: ProfileService,
   ) {
-    this.expiration = this.configService.get("WEBTOKEN_EXPIRATION_TIME");
+    this.expiration = this.configService.get('WEBTOKEN_EXPIRATION_TIME');
   }
 
   /**
@@ -77,9 +77,9 @@ export class AuthService {
     const minutes = Math.floor((ntime % 3600) / 60);
     const seconds = Math.floor((ntime % 3600) % 60);
 
-    return `${hours > 0 ? hours + (hours === 1 ? " hour," : " hours,") : ""} ${
-      minutes > 0 ? minutes + (minutes === 1 ? " minute" : " minutes") : ""
-    } ${seconds > 0 ? seconds + (seconds === 1 ? " second" : " seconds") : ""}`;
+    return `${hours > 0 ? hours + (hours === 1 ? ' hour,' : ' hours,') : ''} ${
+      minutes > 0 ? minutes + (minutes === 1 ? ' minute' : ' minutes') : ''
+    } ${seconds > 0 ? seconds + (seconds === 1 ? ' second' : ' seconds') : ''}`;
   }
 
   /**
@@ -94,7 +94,7 @@ export class AuthService {
     );
     if (!user) {
       throw new UnauthorizedException(
-        "Could not authenticate. Please try again.",
+        'Could not authenticate. Please try again.',
       );
     }
     return user;
