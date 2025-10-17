@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
+
+      - name: Create release archive
+        run: |
+          tar -czf nestjs-mongodb-boilerplate-${{ github.ref_name }}.tar.gz \
+            dist/ \
+            package.json \
+            yarn.lock \
+            README.md \
+            LICENSE \
+            CONTRIBUTING.md \
+            CODE_OF_CONDUCT.md
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "## Changes" > CHANGELOG.txt
+          git log $(git describe --tags --abbrev=0 HEAD^)..HEAD --pretty=format:"- %s (%an)" >> CHANGELOG.txt || echo "- Initial release" >> CHANGELOG.txt
+          cat CHANGELOG.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            nestjs-mongodb-boilerplate-${{ github.ref_name }}.tar.gz
+          body_path: CHANGELOG.txt
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify release
+        run: |
+          echo "✅ Release ${{ github.ref_name }} has been created successfully!"
+          echo "📦 Release URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}"

@@ -1,13 +1,13 @@
-import { Provider } from "@nestjs/common";
-import { createLogger, LoggerOptions } from "winston";
+import { Provider } from '@nestjs/common';
+import { createLogger, LoggerOptions } from 'winston';
 import {
   WINSTON_MODULE_OPTIONS,
   WINSTON_MODULE_PROVIDER,
-} from "./winston.constants";
+} from './winston.constants';
 import {
   WinstonModuleAsyncOptions,
   WinstonModuleOptions,
-} from "./winston.interfaces";
+} from './winston.interfaces';
 
 /**
  * Constructor a winston provider

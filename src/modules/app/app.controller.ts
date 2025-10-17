@@ -1,8 +1,8 @@
-import { Controller, Delete, Get, Param, Req, UseGuards } from "@nestjs/common";
-import { AppService } from "./app.service";
-import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
-import { AuthGuard } from "@nestjs/passport";
-import { Request } from "express";
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { AppService } from './app.service';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 /**
  * App Controller
@@ -22,9 +22,9 @@ export class AppController {
    * @returns {string} the application environment url
    */
   @Get()
-  @UseGuards(AuthGuard("jwt"))
-  @ApiResponse({ status: 200, description: "Request Received" })
-  @ApiResponse({ status: 400, description: "Request Failed" })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiResponse({ status: 200, description: 'Request Received' })
+  @ApiResponse({ status: 400, description: 'Request Failed' })
   getString(): string {
     return this.appService.root();
   }
@@ -34,10 +34,10 @@ export class AppController {
    * @param {Req} req the request body
    * @returns {Partial<Request>} the request user populated from the passport module
    */
-  @Get("request/user")
-  @UseGuards(AuthGuard("jwt"))
-  @ApiResponse({ status: 200, description: "Request Received" })
-  @ApiResponse({ status: 400, description: "Request Failed" })
+  @Get('request/user')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiResponse({ status: 200, description: 'Request Received' })
+  @ApiResponse({ status: 400, description: 'Request Failed' })
   getProfile(@Req() req): Partial<Request> {
     return req.user;
   }

@@ -1,16 +1,16 @@
-import * as crypto from "crypto";
-import * as gravatar from "gravatar";
-import { Model } from "mongoose";
-import { InjectModel } from "@nestjs/mongoose";
+import * as crypto from 'crypto';
+import * as gravatar from 'gravatar';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import {
   BadRequestException,
   Injectable,
   NotAcceptableException,
-} from "@nestjs/common";
-import { IProfile } from "./profile.model";
-import { RegisterPayload } from "modules/auth/payload/register.payload";
-import { AppRoles } from "../app/app.roles";
-import { PatchProfilePayload } from "./payload/patch.profile.payload";
+} from '@nestjs/common';
+import { IProfile } from './profile.model';
+import { RegisterPayload } from 'modules/auth/payload/register.payload';
+import { AppRoles } from '../app/app.roles';
+import { PatchProfilePayload } from './payload/patch.profile.payload';
 
 /**
  * Models a typical response for a crud operation
@@ -32,7 +32,7 @@ export class ProfileService {
    * @param {Model<IProfile>} profileModel
    */
   constructor(
-    @InjectModel("Profile") private readonly profileModel: Model<IProfile>,
+    @InjectModel('Profile') private readonly profileModel: Model<IProfile>,
   ) {}
 
   /**
@@ -63,7 +63,7 @@ export class ProfileService {
     return this.profileModel
       .findOne({
         username,
-        password: crypto.createHmac("sha256", password).digest("hex"),
+        password: crypto.createHmac('sha256', password).digest('hex'),
       })
       .exec();
   }
@@ -77,18 +77,18 @@ export class ProfileService {
     const user = await this.getByUsername(payload.username);
     if (user) {
       throw new NotAcceptableException(
-        "The account with the provided username currently exists. Please choose another one.",
+        'The account with the provided username currently exists. Please choose another one.',
       );
     }
     // this will auto assign the admin role to each created user
     const createdProfile = new this.profileModel({
       ...payload,
-      password: crypto.createHmac("sha256", payload.password).digest("hex"),
+      password: crypto.createHmac('sha256', payload.password).digest('hex'),
       avatar: gravatar.url(payload.email, {
-        protocol: "http",
-        s: "200",
-        r: "pg",
-        d: "404",
+        protocol: 'http',
+        s: '200',
+        r: 'pg',
+        d: '404',
       }),
       roles: AppRoles.ADMIN,
     });
@@ -109,7 +109,7 @@ export class ProfileService {
     );
     if (updatedProfile.modifiedCount !== 1) {
       throw new BadRequestException(
-        "The profile with that username does not exist in the system. Please try another username.",
+        'The profile with that username does not exist in the system. Please try another username.',
       );
     }
     return this.getByUsername(username);
@@ -121,7 +121,7 @@ export class ProfileService {
    * @returns {Promise<IGenericMessageBody>} whether or not the crud operation was completed
    */
   delete(username: string): Promise<IGenericMessageBody> {
-    return this.profileModel.deleteOne({ username }).then(profile => {
+    return this.profileModel.deleteOne({ username }).then((profile) => {
       if (profile.deletedCount === 1) {
         return { message: `Deleted ${username} from records` };
       } else {

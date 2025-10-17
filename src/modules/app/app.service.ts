@@ -1,6 +1,6 @@
-import { Injectable, Inject } from "@nestjs/common";
-import { ConfigService } from "../config/config.service";
-import { Logger } from "winston";
+import { Injectable, Inject } from '@nestjs/common';
+import { ConfigService } from '../config/config.service';
+import { Logger } from 'winston';
 
 /**
  * Application Service
@@ -14,7 +14,7 @@ export class AppService {
    */
   constructor(
     private config: ConfigService,
-    @Inject("winston") private readonly logger: Logger,
+    @Inject('winston') private readonly logger: Logger,
   ) {}
 
   /**
@@ -22,8 +22,8 @@ export class AppService {
    * @returns {string} the application url
    */
   root(): string {
-    const appURL = this.config.get("APP_URL");
-    this.logger.info("Logging the APP_URL -> " + appURL);
+    const appURL = this.config.get('APP_URL');
+    this.logger.info('Logging the APP_URL -> ' + appURL);
     return appURL;
   }
 }
