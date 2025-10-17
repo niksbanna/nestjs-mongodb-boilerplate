@@ -1,5 +1,10 @@
 # NestJS-MongoDB Boilerplate
 
+![CI](https://github.com/niksbanna/nestjs-mongodb-boilerplate/workflows/CI/badge.svg)
+![Docker](https://github.com/niksbanna/nestjs-mongodb-boilerplate/workflows/Docker/badge.svg)
+![CodeQL](https://github.com/niksbanna/nestjs-mongodb-boilerplate/workflows/CodeQL/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Description
 
 This repository provides a boilerplate for starting a project with the NestJS framework and MongoDB. It includes the basic setup and configuration needed to quickly start developing a server-side application.
